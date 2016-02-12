@@ -14,7 +14,7 @@ rawdata<-read.csv("./activity.csv", sep=",")
 Step2: histogram showing the total number of steps taken each day
 ```{r,results="hide"}
 sumsteps<-aggregate(steps~date,data=rawdata,sum,na.action=na.omit)
-hist(sumsteps[,2],main="Histograme of total steps per day",xlab="Total Steps",fill="blue")
+hist(sumsteps[,2],main="Histograme of total steps per day",xlab="Total Steps",col="blue")
 dev.copy(png,width=480,height=480,filename="Histograme of total steps per day")
 dev.off()
 ```
@@ -62,7 +62,7 @@ Step7: Plot Histograme of the total number of steps taken each day after missing
 ```{r,results="hide"}
 tsteps<-dcast(melt(cleandata,id=c("interval","date")),variable~date,sum)
 tsteps<-melt(tsteps,variable.name="date",value.name="total_steps")
-hist(tsteps$total_steps,main="Histograme of total steps per day",xlab="Total Steps")
+hist(tsteps$total_steps,main="Histograme of total steps per day",xlab="Total Steps",col="gi")
 dev.copy(png,width=480,height=480,filename="Histograme of total steps per day_clean data")
 dev.off()
 ```
