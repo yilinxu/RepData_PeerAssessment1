@@ -8,14 +8,14 @@ The raw data is collected by a personal activity monitoring device. This device 
 
 Step1: Read the data 
 ```{r}
-rawdata<-read.csv("./activity.csv", sep=",")
+rawdata<-read.csv(unz("activity.zip","activity.csv"), sep=",")
 ```
 
 Step2: histogram showing the total number of steps taken each day
 ```{r,results="hide"}
 sumsteps<-aggregate(steps~date,data=rawdata,sum,na.action=na.omit)
-hist(sumsteps[,2],main="Histograme of total steps per day",xlab="Total Steps",col="blue")
-dev.copy(png,width=480,height=480,filename="Histograme of total steps per day")
+hist(sumsteps[,2],main="Histograme of total steps per day",xlab="Total Steps",col="grey")
+dev.copy(png,width=480,height=480,filename="Histograme of total steps per day.png")
 dev.off()
 ```
 
@@ -33,7 +33,7 @@ Step4: Plot time series plot of the average number of steps taken
 par(mfrow=c(1,1), mar=c(4,4,2,2))
 meansteps$date<-as.Date(meansteps$date)
 plot(meansteps,type="o",pch=19,main="Average steps with time",xlab="Date",ylab="Average steps")
-dev.copy(png,width=480,height=480,filename="Time series plot of average number of steps taken")
+dev.copy(png,width=480,height=480,filename="Time series plot of average number of steps taken.png")
 dev.off()
 ```
 
@@ -62,8 +62,8 @@ Step7: Plot Histograme of the total number of steps taken each day after missing
 ```{r,results="hide"}
 tsteps<-dcast(melt(cleandata,id=c("interval","date")),variable~date,sum)
 tsteps<-melt(tsteps,variable.name="date",value.name="total_steps")
-hist(tsteps$total_steps,main="Histograme of total steps per day",xlab="Total Steps",col="gi")
-dev.copy(png,width=480,height=480,filename="Histograme of total steps per day_clean data")
+hist(tsteps$total_steps,main="Histograme of total steps per day",xlab="Total Steps",col="grey")
+dev.copy(png,width=480,height=480,filename="Histograme of total steps per day_clean data.png")
 dev.off()
 ```
 
@@ -79,7 +79,7 @@ asteps_weekend<-aggregate(steps.x~interval,data=weekend_data,mean)
 par(mfrow=c(1,2),mar=c(4,4,2,2))
 plot(asteps_weekday,type="l",main="Week Day",xlab="Interval",ylab="Average steps",ylim=c(0,250))
 plot(asteps_weekend,type="l",main="Weekend Day",xlab="Interval",ylab="Average steps",ylim=c(0,250))
-dev.copy(png,width=480,height=480,filename="Comparing weekdays and weekends")
+dev.copy(png,width=480,height=480,filename="Comparing weekdays and weekends.png")
 dev.off()
 ```
 
